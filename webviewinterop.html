@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>iOS/Safari Interop</title>
+        <meta charset="UTF-8">
+        <style>
+        body {
+    		background-color: black;
+		}
+		td {
+			color: yellow;
+			font-size: 32px;
+		}
+        input {
+  			color: black;
+  			border: 0;
+  			font-size: 32px;
+  			height:70px;
+    		width:300px;
+		}
+		h1 {
+			color: white;
+			font-size: 42px;
+		}
+		</style>
+        <script>
+			function geocodeAddress() {
+			    try {
+			        webkit.messageHandlers.geocodeAddress.postMessage(
+			        	{ 
+			        		street: document.getElementById("street").value,
+			        		city: document.getElementById("city").value,
+			        		state: document.getElementById("state").value,
+			        		country: document.getElementById("country").value
+			        	});
+			        document.querySelector('h1').style.color = "green";
+			    } catch(err) {
+			        document.querySelector('h1').style.color = "red";
+			    }
+			}
+
+			function changeBackgroundColor(colorText) {
+				document.body.style.background = colorText;
+			}
+
+			function setLatLon(lat, lon) {
+				document.getElementById("latitude").value = lat;
+				document.getElementById("longitude").value = lon;
+			}
+        </script>
+    </head>
+    <body>
+        <h1>Enter Address to Geocode</h1>
+        <table cellspacing="10">
+        	<tr><td>Address</td><td><input id="street" type="text" width="80"/></td></tr>
+        	<tr><td>City</td><td><input id="city" type="text" width="50" /></td></tr>
+        	<tr><td>State</td><td><input id="state" type="text" width="10"/></td></tr>
+        	<tr><td>Country</td><td><input id="country" type="text" width="10"/></td></tr>
+        	<tr><td/><td><input type="submit" value="Geocode Address" onclick="geocodeAddress();"></td></tr>
+        	<tr/>
+        	<tr><td>Latitude</td><td><input id="latitude" type="text" width="50" /></td></tr>
+        	<tr><td>Longitude</td><td><input id="longitude" type="text" width="50" /></td></tr>
+        </table>
+    </body>
+</html>
